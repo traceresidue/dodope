@@ -10,6 +10,7 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/
 import { Bar, BarChart, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Pie, PieChart, Cell, AreaChart, Area, LineChart, Line } from 'recharts'
 import { Skeleton } from "@/components/ui/skeleton"
 import * as d3 from 'd3'
+import { FormulationChart } from '@/components/ui/formulation-chart'
 
 // Initialize Supabase client
 const supabase = createClient('https://obheyqbxnhsejpjewtzs.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9iaGV5cWJ4bmhzZWpwamV3dHpzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjgzMzQzNTMsImV4cCI6MjA0MzkxMDM1M30.qNryur5BuccD0NUXobl_-ABEEaLbDb82zoRDtHvcImk')
@@ -64,7 +65,7 @@ export function PublicDashboard() {
     setLoading(true)
     try {
       const { data, error } = await supabase
-        .from('program_survey_entries')
+        .from('adapted_latest_surveys')
         .select('*')
         .order('month_year', { ascending: true })
 
@@ -775,6 +776,11 @@ export function PublicDashboard() {
           </CardContent>
         </Card>
       </div>
+      <FormulationChart 
+        className="col-span-2 w-[40%]"
+        data={filteredData} 
+        title="Naloxone Distribution by Formulation"
+      />
     </div>
   )
 }
